@@ -10,12 +10,12 @@ set :default_environment, {
 # set :stages, %w(production staging)
 # set :default_stage, "staging"
 set :user, "deployer"
-set :application, "folify"
+set :application, "application_name"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :branch, "origin/master"
-server  "folify.com", :web, :app, :db, :primary => true, :resque=>true
+server  "192.168.1.1", :web, :app, :db, :primary => true, :resque=>true
 set :scm, :git
-set :repository,  "/home/deployer/git/folify"
+set :repository,  "git@github.com:user_name/#{application}.git"
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :normalize_asset_timestamps, false
