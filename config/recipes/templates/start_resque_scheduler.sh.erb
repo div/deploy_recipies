@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+PATH=/home/<%= user %>/.rbenv/bin:/home/<%= user %>/.rbenv/shims:$PATH
+cd <%= current_path %>
+RAILS_ENV=<%= rails_env %> rake resque:scheduler& > <%= current_path %>/log/resque_scheduler.log
+echo $! > <%= current_path %>/tmp/pids/resque_scheduler.pid

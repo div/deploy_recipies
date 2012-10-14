@@ -1,0 +1,17 @@
+check process resque_worker
+  with pidfile <%= current_path %>/tmp/pids/resque_worker.pid
+  start program = "/bin/sh -c <%= resque_start %>"
+  as uid <%= user %> and gid <%= user %>
+  stop program = "/bin/sh -c 'cd <%= current_path %> && kill -s QUIT $(cat tmp/pids/resque_worker.pid) && rm -f tmp/pids/resque_worker.pid; exit 0;'"
+  as uid <%= user %>
+  if totalmem is greater than 300 MB for 10 cycles then alert  # eating up memory?
+  group resque_<%= application %>
+
+check process resque_scheduler
+  with pidfile <%= current_path %>/tmp/pids/resque_scheduler.pid
+  start program = "/bin/sh -c <%= resque_scheduler_start %>"
+  as uid <%= user %> and gid <%= user %>
+  stop program = "/bin/sh -c 'cd <%= current_path %> && kill -s QUIT $(cat tmp/pids/resque_scheduler.pid) && rm -f tmp/pids/resque_scheduler.pid; exit 0;'"
+  as uid <%= user %>
+  if totalmem is greater than 300 MB for 10 cycles then alert  # eating up memory?
+  group resque_<%= application %>
