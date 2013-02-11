@@ -4,7 +4,7 @@ upstream unicorn {
 
 server {
   listen 80 default deferred;
-  server_name folify.com *.folify.com;
+  server_name mycoolsite.com *.mycoolsite.com;
   root <%= current_path %>/public;
 
   if (-f $document_root/system/maintenance.html) {
@@ -49,6 +49,6 @@ server {
 
 server {
   listen 80;
-  server_name www.folify.com;
-  rewrite ^/(.*) http://folify.com/$1 permanent;
+  server_name www.mycoolsite.com;
+  rewrite ^/(.*) http://mycoolsite.com/$1 permanent;
 }
